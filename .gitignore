@@ -1,0 +1,6 @@
+.DS_Store
+Thumbs.db
+desktop.ini
+output/
+.playwright-cli/
+7909907.pdf
