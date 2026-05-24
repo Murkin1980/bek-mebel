@@ -144,16 +144,14 @@ h3 {
   min-width: 176px;
 }
 
-.brand-mark {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.34);
+.brand-logo {
+  width: 50px;
+  height: 50px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(189, 141, 84, 0.52);
   border-radius: 50%;
-  color: var(--bronze);
-  font-family: "Playfair Display", serif;
-  font-weight: 700;
+  object-fit: cover;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
 }
 
 .brand strong,
@@ -290,6 +288,16 @@ h3 {
 .hero-facts {
   position: relative;
   z-index: 1;
+}
+
+.hero-logo-seal {
+  width: clamp(86px, 11vw, 142px);
+  height: clamp(86px, 11vw, 142px);
+  margin-bottom: 22px;
+  border: 1px solid rgba(189, 141, 84, 0.38);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.36);
 }
 
 .eyebrow {
@@ -1189,7 +1197,7 @@ body.contact-active .chat-toggle {
     min-width: auto;
   }
 
-  .brand-mark {
+  .brand-logo {
     width: 42px;
     height: 42px;
   }
