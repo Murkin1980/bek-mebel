@@ -52,6 +52,7 @@
       </a>
       <nav class="nav" id="mainNav" aria-label="Основная навигация">
         <a href="#services">Услуги</a>
+        <a href="#styles">Стили</a>
         <a href="#portfolio">Работы</a>
         <a href="#process">Процесс</a>
         <a href="#faq">FAQ</a>
@@ -136,6 +137,45 @@
         </div>
       </section>
 
+      <section class="section style-lab" id="styles">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Подбор стиля</p>
+          <h2>Выберите направление, а мы подберем фасады, цвет и фурнитуру</h2>
+        </div>
+        <div class="style-lab-grid">
+          <div class="style-preview reveal">
+            <img id="stylePreviewImage" src="assets/Кухня 15_01.jpg" alt="Светлая премиальная кухня" width="1018" height="1280" loading="lazy" decoding="async">
+            <div>
+              <span id="stylePreviewTag">Премиум светлый</span>
+              <strong id="stylePreviewTitle">Мягкий светлый интерьер</strong>
+              <p id="stylePreviewText">Светлые фасады, витрины, скрытая подсветка и спокойная премиальная геометрия.</p>
+            </div>
+          </div>
+          <div class="style-options reveal reveal-delay-1" aria-label="Направления дизайна">
+            <button class="style-card active" type="button" data-style="Премиум светлый" data-image="assets/Кухня 15_01.jpg" data-title="Мягкий светлый интерьер" data-text="Светлые фасады, витрины, скрытая подсветка и спокойная премиальная геометрия.">
+              <span>01</span>
+              <strong>Премиум светлый</strong>
+              <small>Ivory, стекло, золото, подсветка</small>
+            </button>
+            <button class="style-card" type="button" data-style="Дерево и графит" data-image="assets/Кухня 2_01.jpg" data-title="Теплое дерево и строгие линии" data-text="Фасады под дерево, графитовые акценты, встроенная техника и чистые вертикали.">
+              <span>02</span>
+              <strong>Дерево и графит</strong>
+              <small>Теплый шпон, черные ручки, техника</small>
+            </button>
+            <button class="style-card" type="button" data-style="Современный минимализм" data-image="assets/Кухня 9_01.jpg" data-title="Ровные плоскости без визуального шума" data-text="Гладкие фасады, темная столешница, четкая геометрия и максимум полезного хранения.">
+              <span>03</span>
+              <strong>Современный минимализм</strong>
+              <small>Матовые фасады, скрытые ручки</small>
+            </button>
+            <button class="style-card" type="button" data-style="Классика premium" data-image="assets/Шкаф 2_01.jpg" data-title="Классические фасады с благородными деталями" data-text="Фрезеровка, зеркала, золотистая фурнитура и аккуратная симметрия для спальни или прихожей.">
+              <span>04</span>
+              <strong>Классика premium</strong>
+              <small>Фрезеровка, зеркала, латунные ручки</small>
+            </button>
+          </div>
+        </div>
+      </section>
+
       <section class="section craft">
         <div class="craft-copy reveal">
           <p class="eyebrow">Подход</p>
@@ -164,8 +204,25 @@
           <button class="filter-btn" type="button" data-filter="bath">Санузел</button>
           <button class="filter-btn" type="button" data-filter="cabinet">Шкафы и серванты</button>
         </div>
+        <div class="portfolio-insights reveal">
+          <article>
+            <span>Кухни</span>
+            <strong>Сначала техника и сценарии</strong>
+            <p>Планируем хранение, проходы, мойку, варочную зону и высокие шкафы до выбора фасадов.</p>
+          </article>
+          <article>
+            <span>Шкафы</span>
+            <strong>Каждая ниша работает</strong>
+            <p>Делаем наполнение под обувь, одежду, чемоданы, бытовые вещи и сезонное хранение.</p>
+          </article>
+          <article>
+            <span>Санузлы</span>
+            <strong>Аккуратно вокруг коммуникаций</strong>
+            <p>Закрываем трубы и инсталляции, оставляя доступ к важным узлам и удобное хранение.</p>
+          </article>
+        </div>
         <div class="portfolio-grid">
-          <button class="portfolio-item featured reveal" type="button" data-category="kitchen" data-title="Кухня с островом" data-src="assets/Кухня 1_01.jpg">
+          <button class="portfolio-item featured reveal" type="button" data-category="kitchen" data-title="Кухня с островом" data-detail="Остров добавляет рабочую поверхность и хранение, высокие шкафы скрывают технику и визуально собирают стену." data-src="assets/Кухня 1_01.jpg">
             <img src="assets/Кухня 1_01.jpg" alt="Кухня на заказ с островом и деревянными фасадами" width="1032" height="1280" loading="lazy" decoding="async">
             <span>Кухня с островом</span>
           </button>
@@ -173,11 +230,11 @@
             <img src="assets/Кухня 15_01.jpg" alt="Светлая кухня с витринами и обеденной зоной" width="1018" height="1280" loading="lazy" decoding="async">
             <span>Светлая кухня</span>
           </button>
-          <button class="portfolio-item reveal" type="button" data-category="wardrobe" data-title="Гардеробная" data-src="assets/Гардероб 1_02.jpg">
+          <button class="portfolio-item reveal" type="button" data-category="wardrobe" data-title="Гардеробная" data-detail="Полки, штанги и ящики распределены так, чтобы пространство работало от пола до потолка." data-src="assets/Гардероб 1_02.jpg">
             <img src="assets/Гардероб 1_02.jpg" alt="Гардеробная с полками и ящиками" width="591" height="1280" loading="lazy" decoding="async">
             <span>Гардеробная</span>
           </button>
-          <button class="portfolio-item tall reveal" type="button" data-category="kids" data-title="Детская комната" data-src="assets/Детская 1_01.jpg">
+          <button class="portfolio-item tall reveal" type="button" data-category="kids" data-title="Детская комната" data-detail="Шкафы, полки и рабочая зона собраны вокруг окна, чтобы оставить больше свободного пространства в комнате." data-src="assets/Детская 1_01.jpg">
             <img src="assets/Детская 1_01.jpg" alt="Мебель для детской комнаты вокруг окна" width="1079" height="1275" loading="lazy" decoding="async">
             <span>Детская комната</span>
           </button>
@@ -365,6 +422,11 @@
           </div>
         </div>
         <form class="contact-form reveal reveal-delay-1" id="leadForm" novalidate>
+          <div class="brief-progress" aria-label="Этапы заявки">
+            <span class="active">1. Мебель</span>
+            <span>2. Размеры</span>
+            <span>3. Контакт</span>
+          </div>
           <div class="form-row">
             <label for="name">Ваше имя</label>
             <input id="name" name="name" type="text" autocomplete="name" placeholder="Например, Мурат">
@@ -389,8 +451,54 @@
             </select>
           </div>
           <div class="form-row">
+            <label>Быстрый выбор</label>
+            <div class="option-chips" data-target="service">
+              <button type="button" data-value="Кухня">Кухня</button>
+              <button type="button" data-value="Шкаф">Шкаф</button>
+              <button type="button" data-value="Гардеробная">Гардеробная</button>
+              <button type="button" data-value="Прихожая">Прихожая</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="style">Стиль</label>
+            <select id="style" name="style">
+              <option value="">Пока не выбрали</option>
+              <option>Премиум светлый</option>
+              <option>Дерево и графит</option>
+              <option>Современный минимализм</option>
+              <option>Классика premium</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="dimensions">Размеры или помещение</label>
+            <input id="dimensions" name="dimensions" type="text" placeholder="Например, кухня 3,2 м или ниша 1800x2600">
+          </div>
+          <div class="form-row">
+            <label for="stage">Стадия проекта</label>
+            <select id="stage" name="stage">
+              <option value="">Выберите стадию</option>
+              <option>Есть размеры</option>
+              <option>Нужен замер</option>
+              <option>Есть дизайн-проект</option>
+              <option>Нужна консультация</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label for="deadline">Когда нужно</label>
+            <select id="deadline" name="deadline">
+              <option value="">Не срочно</option>
+              <option>В ближайший месяц</option>
+              <option>Через 1-2 месяца</option>
+              <option>После ремонта</option>
+            </select>
+          </div>
+          <div class="form-row">
             <label for="message">Комментарий</label>
             <textarea id="message" name="message" rows="5" placeholder="Напишите размеры, материал, сроки или прикрепите фото уже в WhatsApp"></textarea>
+          </div>
+          <div class="lead-summary" aria-live="polite">
+            <span>Резюме заявки</span>
+            <p id="leadSummary">Выберите тип мебели, стиль и стадию проекта - мы соберем аккуратный текст для WhatsApp.</p>
           </div>
           <button class="button primary form-submit" id="submitBtn" type="submit">Отправить заявку</button>
           <p class="form-note" id="formSuccess" aria-live="polite">WhatsApp откроется в новой вкладке с готовым текстом заявки.</p>

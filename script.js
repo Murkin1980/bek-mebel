@@ -102,12 +102,84 @@ const phoneInput = document.getElementById("phone");
 const phoneError = document.getElementById("phoneError");
 const submitBtn = document.getElementById("submitBtn");
 const formSuccess = document.getElementById("formSuccess");
+const styleSelect = document.getElementById("style");
+const dimensionsInput = document.getElementById("dimensions");
+const stageSelect = document.getElementById("stage");
+const deadlineSelect = document.getElementById("deadline");
+const messageInput = document.getElementById("message");
+const leadSummary = document.getElementById("leadSummary");
+const briefProgress = document.querySelectorAll(".brief-progress span");
+
+const styleCards = document.querySelectorAll(".style-card");
+const stylePreviewImage = document.getElementById("stylePreviewImage");
+const stylePreviewTag = document.getElementById("stylePreviewTag");
+const stylePreviewTitle = document.getElementById("stylePreviewTitle");
+const stylePreviewText = document.getElementById("stylePreviewText");
+
+function updateLeadSummary() {
+  if (!leadSummary) return;
+  const service = document.getElementById("service").value || "тип мебели не выбран";
+  const style = styleSelect.value || "стиль подберем вместе";
+  const dimensions = dimensionsInput.value.trim() || "размеры уточним";
+  const stage = stageSelect.value || "стадия не указана";
+  const deadline = deadlineSelect.value || "срок не указан";
+  leadSummary.textContent = `${service}. ${style}. ${dimensions}. ${stage}. ${deadline}.`;
+  const activeStep = isValidPhone(phoneInput.value) ? 2 : dimensionsInput.value.trim() || stageSelect.value ? 1 : document.getElementById("service").value ? 0 : 0;
+  briefProgress.forEach((step, index) => {
+    step.classList.toggle("active", index === activeStep);
+    step.classList.toggle("done", index < activeStep);
+  });
+}
+
+function selectStyle(styleName) {
+  if (!styleSelect) return;
+  const selectedCard = [...styleCards].find((card) => card.dataset.style === styleName);
+  styleSelect.value = styleName;
+  styleCards.forEach((card) => card.classList.toggle("active", card.dataset.style === styleName));
+  if (selectedCard) {
+    stylePreviewImage.src = selectedCard.dataset.image;
+    stylePreviewImage.alt = selectedCard.dataset.title;
+    stylePreviewTag.textContent = selectedCard.dataset.style;
+    stylePreviewTitle.textContent = selectedCard.dataset.title;
+    stylePreviewText.textContent = selectedCard.dataset.text;
+  }
+  updateLeadSummary();
+}
 
 phoneInput.addEventListener("input", () => {
   phoneInput.value = formatKzPhone(phoneInput.value);
   phoneInput.classList.remove("error");
   phoneError.classList.remove("show");
+  updateLeadSummary();
 });
+
+[document.getElementById("service"), styleSelect, dimensionsInput, stageSelect, deadlineSelect, messageInput].forEach((field) => {
+  if (field) field.addEventListener("input", updateLeadSummary);
+});
+
+if (styleSelect) {
+  styleSelect.addEventListener("change", () => {
+    if (styleSelect.value) selectStyle(styleSelect.value);
+  });
+}
+
+document.querySelectorAll(".option-chips button").forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = document.getElementById(button.closest(".option-chips").dataset.target);
+    target.value = button.dataset.value;
+    button.closest(".option-chips").querySelectorAll("button").forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    updateLeadSummary();
+  });
+});
+
+styleCards.forEach((card) => {
+  card.addEventListener("click", () => {
+    selectStyle(card.dataset.style);
+  });
+});
+
+updateLeadSummary();
 
 leadForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -115,7 +187,11 @@ leadForm.addEventListener("submit", (event) => {
   const name = document.getElementById("name").value.trim();
   const phone = phoneInput.value.trim();
   const service = document.getElementById("service").value;
-  const message = document.getElementById("message").value.trim();
+  const style = styleSelect.value;
+  const dimensions = dimensionsInput.value.trim();
+  const stage = stageSelect.value;
+  const deadline = deadlineSelect.value;
+  const message = messageInput.value.trim();
 
   if (!isValidPhone(phone)) {
     phoneInput.classList.add("error");
@@ -132,11 +208,18 @@ leadForm.addEventListener("submit", (event) => {
     `Имя: ${name || "не указано"}\n` +
     `Телефон: ${phone}\n` +
     `Тип мебели: ${service || "не указан"}\n` +
+    `Стиль: ${style || "не выбран"}\n` +
+    `Размеры/помещение: ${dimensions || "не указано"}\n` +
+    `Стадия: ${stage || "не указана"}\n` +
+    `Срок: ${deadline || "не указан"}\n` +
     `Комментарий: ${message || "нет"}`;
 
   setTimeout(() => {
     openWhatsApp(whatsappMessage);
     leadForm.reset();
+    document.querySelectorAll(".option-chips button").forEach((button) => button.classList.remove("active"));
+    selectStyle("Премиум светлый");
+    updateLeadSummary();
     formSuccess.textContent = "Заявка подготовлена. Если WhatsApp не открылся, нажмите кнопку еще раз.";
     submitBtn.disabled = false;
     submitBtn.textContent = "Отправить заявку";
@@ -146,6 +229,10 @@ leadForm.addEventListener("submit", (event) => {
 document.querySelectorAll(".service-card").forEach((card) => {
   card.addEventListener("click", () => {
     document.getElementById("service").value = card.dataset.service;
+    document.querySelectorAll('.option-chips[data-target="service"] button').forEach((button) => {
+      button.classList.toggle("active", button.dataset.value === card.dataset.service);
+    });
+    updateLeadSummary();
     document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
   });
 });
@@ -171,10 +258,10 @@ const lightboxImage = document.getElementById("lightboxImage");
 const lightboxCaption = document.getElementById("lightboxCaption");
 const lightboxClose = document.getElementById("lightboxClose");
 
-function openLightbox(src, title) {
+function openLightbox(src, title, detail = "") {
   lightboxImage.src = src;
   lightboxImage.alt = title;
-  lightboxCaption.textContent = title;
+  lightboxCaption.textContent = detail ? `${title}. ${detail}` : title;
   lightbox.classList.add("open");
   document.body.classList.add("lightbox-open");
 }
@@ -187,7 +274,7 @@ function closeLightbox() {
 
 portfolioItems.forEach((item) => {
   item.addEventListener("click", () => {
-    openLightbox(item.dataset.src, item.dataset.title);
+    openLightbox(item.dataset.src, item.dataset.title, item.dataset.detail);
   });
 });
 
@@ -282,6 +369,7 @@ const faqAnswers = [
 let chatState = {
   service: null,
   detail: null,
+  stage: null,
 };
 
 function bubble(text, who) {
@@ -313,8 +401,8 @@ function showChatPhone() {
 
 function startChat() {
   chatMessages.innerHTML = "";
-  chatState = { service: null, detail: null };
-  bubble("Здравствуйте! Я помогу быстро оформить заявку. Что хотите заказать?", "bot");
+  chatState = { service: null, detail: null, stage: null };
+  bubble("Здравствуйте! Я помогу быстро оформить заявку.\nШаг 1 из 3: что хотите заказать?", "bot");
   setChatButtons(
     chatServices.map((service) => service.name),
     (label) => {
@@ -322,13 +410,20 @@ function startChat() {
       chatState.service = service.name;
       bubble(label, "user");
       setTimeout(() => {
-        bubble(service.question, "bot");
+        bubble(`Шаг 2 из 3: ${service.question}`, "bot");
         setChatButtons(service.options, (detail) => {
           chatState.detail = detail;
           bubble(detail, "user");
           setTimeout(() => {
-            bubble("Отлично. Оставьте телефон, и мы откроем WhatsApp с готовой заявкой.", "bot");
-            showChatPhone();
+            bubble("Какая сейчас стадия проекта?", "bot");
+            setChatButtons(["Есть размеры", "Нужен замер", "Есть дизайн-проект", "Нужна консультация"], (stage) => {
+              chatState.stage = stage;
+              bubble(stage, "user");
+              setTimeout(() => {
+                bubble("Шаг 3 из 3: оставьте телефон, и мы откроем WhatsApp с готовой заявкой.", "bot");
+                showChatPhone();
+              }, 250);
+            });
           }, 250);
         });
       }, 250);
@@ -370,6 +465,7 @@ function sendChatLead() {
     "Здравствуйте! Заявка с помощника Bek Mebel:\n\n" +
     `Тип мебели: ${chatState.service || "не указан"}\n` +
     `Детали: ${chatState.detail || "не указано"}\n` +
+    `Стадия: ${chatState.stage || "не указана"}\n` +
     `Телефон: ${phone}`;
 
   setTimeout(() => {
