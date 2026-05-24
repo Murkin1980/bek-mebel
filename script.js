@@ -200,9 +200,6 @@ leadForm.addEventListener("submit", (event) => {
     return;
   }
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = "Открываем WhatsApp...";
-
   const whatsappMessage =
     "Здравствуйте! Заявка с сайта bek-mebel:\n\n" +
     `Имя: ${name || "не указано"}\n` +
@@ -214,16 +211,16 @@ leadForm.addEventListener("submit", (event) => {
     `Срок: ${deadline || "не указан"}\n` +
     `Комментарий: ${message || "нет"}`;
 
-  setTimeout(() => {
-    openWhatsApp(whatsappMessage);
-    leadForm.reset();
-    document.querySelectorAll(".option-chips button").forEach((button) => button.classList.remove("active"));
-    selectStyle("Премиум светлый");
-    updateLeadSummary();
-    formSuccess.textContent = "Заявка подготовлена. Если WhatsApp не открылся, нажмите кнопку еще раз.";
-    submitBtn.disabled = false;
-    submitBtn.textContent = "Отправить заявку";
-  }, 500);
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Открываем WhatsApp...";
+  openWhatsApp(whatsappMessage);
+  leadForm.reset();
+  document.querySelectorAll(".option-chips button").forEach((button) => button.classList.remove("active"));
+  selectStyle("Премиум светлый");
+  updateLeadSummary();
+  formSuccess.textContent = "Заявка подготовлена. Если WhatsApp не открылся, нажмите кнопку еще раз.";
+  submitBtn.disabled = false;
+  submitBtn.textContent = "Отправить заявку";
 });
 
 document.querySelectorAll(".service-card").forEach((card) => {
@@ -468,12 +465,10 @@ function sendChatLead() {
     `Стадия: ${chatState.stage || "не указана"}\n` +
     `Телефон: ${phone}`;
 
+  openWhatsApp(message);
   setTimeout(() => {
     bubble("Готово. Открываю WhatsApp с вашей заявкой.", "bot");
-    openWhatsApp(message);
-    setTimeout(() => {
-      setChatButtons(["Новая заявка"], () => startChat());
-    }, 350);
+    setChatButtons(["Новая заявка"], () => startChat());
   }, 250);
 }
 
