@@ -62,6 +62,16 @@ const contactObserver = new IntersectionObserver(
 
 contactObserver.observe(contactSection);
 
+const heroSection = document.querySelector(".hero");
+const heroObserver = new IntersectionObserver(
+  ([entry]) => {
+    document.body.classList.toggle("hero-active", entry.isIntersecting);
+  },
+  { threshold: 0.42 }
+);
+
+heroObserver.observe(heroSection);
+
 function formatKzPhone(value) {
   let digits = value.replace(/\D/g, "");
   if (digits.startsWith("8")) digits = "7" + digits.slice(1);
