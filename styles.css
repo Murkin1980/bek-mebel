@@ -1227,7 +1227,8 @@ body.contact-active .chat-toggle {
 
 .chat-messages {
   display: flex;
-  min-height: 230px;
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   flex-direction: column;
   gap: 9px;
