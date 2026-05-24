@@ -431,6 +431,7 @@ function startChat() {
 function openChat() {
   chatWidget.classList.add("open");
   chatWidget.setAttribute("aria-hidden", "false");
+  chatToggle.setAttribute("aria-expanded", "true");
   chatToggle.style.display = "none";
   if (!chatMessages.children.length) startChat();
 }
@@ -438,6 +439,7 @@ function openChat() {
 function closeChat() {
   chatWidget.classList.remove("open");
   chatWidget.setAttribute("aria-hidden", "true");
+  chatToggle.setAttribute("aria-expanded", "false");
   chatToggle.style.display = "";
 }
 
