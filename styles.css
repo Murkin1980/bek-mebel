@@ -1268,15 +1268,14 @@ body.contact-active .chat-toggle {
   border-top: 1px solid rgba(23, 19, 15, 0.1);
 }
 
-/* ★ P1: chat-btn — убран bronze */
 .chat-btn {
   flex: 0 0 auto;
   min-height: 34px;
   padding: 0 13px;
-  border: 1.5px solid var(--muted); /* ★ было var(--bronze) */
+  border: 1.5px solid var(--stone);
   border-radius: 0;
-  color: var(--ink); /* ★ было var(--bronze-dark) */
-  background: transparent; /* ★ было #fff */
+  color: var(--charcoal);
+  background: transparent;
 }
 
 .chat-btn:hover {
