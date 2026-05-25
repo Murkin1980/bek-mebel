@@ -97,6 +97,15 @@ function openWhatsApp(message) {
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
 }
 
+function trackLeadConversion(source) {
+  if (typeof window.gtag !== "function") return;
+
+  window.gtag("event", "conversion", {
+    send_to: "AW-16661568302/1uqnCIjB1o8cEK627Yg-",
+    transaction_id: `bek-${source}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+  });
+}
+
 const leadForm = document.getElementById("leadForm");
 const phoneInput = document.getElementById("phone");
 const phoneError = document.getElementById("phoneError");
@@ -209,6 +218,7 @@ leadForm.addEventListener("submit", (event) => {
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Открываем WhatsApp...";
+  trackLeadConversion("form");
   openWhatsApp(whatsappMessage);
   leadForm.reset();
   document.querySelectorAll(".option-chips button").forEach((button) => button.classList.remove("active"));
@@ -463,6 +473,7 @@ function sendChatLead() {
     `Стадия: ${chatState.stage || "не указана"}\n` +
     `Телефон: ${phone}`;
 
+  trackLeadConversion("assistant");
   openWhatsApp(message);
   setTimeout(() => {
     bubble("Готово. Открываю WhatsApp с вашей заявкой.", "bot");
