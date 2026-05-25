@@ -105,7 +105,6 @@ const formSuccess = document.getElementById("formSuccess");
 const styleSelect = document.getElementById("style");
 const dimensionsInput = document.getElementById("dimensions");
 const stageSelect = document.getElementById("stage");
-const deadlineSelect = document.getElementById("deadline");
 const messageInput = document.getElementById("message");
 const leadSummary = document.getElementById("leadSummary");
 const briefProgress = document.querySelectorAll(".brief-progress span");
@@ -122,8 +121,7 @@ function updateLeadSummary() {
   const style = styleSelect.value || "стиль подберем вместе";
   const dimensions = dimensionsInput.value.trim() || "размеры уточним";
   const stage = stageSelect.value || "стадия не указана";
-  const deadline = deadlineSelect.value || "срок не указан";
-  leadSummary.textContent = `${service}. ${style}. ${dimensions}. ${stage}. ${deadline}.`;
+  leadSummary.textContent = `${service}. ${style}. ${dimensions}. ${stage}.`;
   const activeStep = isValidPhone(phoneInput.value) ? 2 : dimensionsInput.value.trim() || stageSelect.value ? 1 : document.getElementById("service").value ? 0 : 0;
   briefProgress.forEach((step, index) => {
     step.classList.toggle("active", index === activeStep);
@@ -153,7 +151,7 @@ phoneInput.addEventListener("input", () => {
   updateLeadSummary();
 });
 
-[document.getElementById("service"), styleSelect, dimensionsInput, stageSelect, deadlineSelect, messageInput].forEach((field) => {
+[document.getElementById("service"), styleSelect, dimensionsInput, stageSelect, messageInput].forEach((field) => {
   if (field) field.addEventListener("input", updateLeadSummary);
 });
 
@@ -190,7 +188,6 @@ leadForm.addEventListener("submit", (event) => {
   const style = styleSelect.value;
   const dimensions = dimensionsInput.value.trim();
   const stage = stageSelect.value;
-  const deadline = deadlineSelect.value;
   const message = messageInput.value.trim();
 
   if (!isValidPhone(phone)) {
@@ -208,7 +205,6 @@ leadForm.addEventListener("submit", (event) => {
     `Стиль: ${style || "не выбран"}\n` +
     `Размеры/помещение: ${dimensions || "не указано"}\n` +
     `Стадия: ${stage || "не указана"}\n` +
-    `Срок: ${deadline || "не указан"}\n` +
     `Комментарий: ${message || "нет"}`;
 
   submitBtn.disabled = true;
