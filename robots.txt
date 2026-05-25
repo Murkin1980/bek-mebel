@@ -41,5 +41,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://murkin1980.github.io/bek-mebel/sitemap.xml
-LLM: https://murkin1980.github.io/bek-mebel/llms.txt
+Sitemap: https://bek-mebel.kz/sitemap.xml
+LLM: https://bek-mebel.kz/llms.txt

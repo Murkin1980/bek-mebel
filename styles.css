@@ -1533,7 +1533,7 @@ body.contact-active .chat-toggle {
     height: 44px;
     border: 1px solid rgba(244, 241, 234, 0.28);
     border-radius: 50%;
-    color: #111;
+    color: var(--ink);
     background: linear-gradient(135deg, #f4f1ea 0%, #c89a3d 100%);
     box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
   }
@@ -1545,6 +1545,7 @@ body.contact-active .chat-toggle {
     height: 1px;
     overflow: hidden;
     clip: rect(0 0 0 0);
+    clip-path: inset(50%);
     white-space: nowrap;
   }
 
@@ -1552,13 +1553,13 @@ body.contact-active .chat-toggle {
     display: block;
     width: 21px;
     height: 21px;
-    color: #111;
+    color: var(--ink);
     stroke-width: 2.3;
   }
 
   .site-header .social-mark {
     display: none;
-    color: #111;
+    color: var(--ink);
     font-size: 12px;
     font-weight: 900;
     line-height: 1;
@@ -1775,7 +1776,7 @@ body.contact-active .chat-toggle {
   }
 
   .float-whatsapp {
-    bottom: max(18px, env(safe-area-inset-bottom, 18px)); /* ★ было 18px */
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
   }
 
   .chat-toggle {
