@@ -243,7 +243,7 @@ h3 {
   gap: 7px;
 }
 
-.social-link svg {
+.social-icon {
   width: 17px;
   height: 17px;
   fill: none;
@@ -251,6 +251,10 @@ h3 {
   stroke-width: 1.9;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.social-mark {
+  display: none;
 }
 
 .header-phone {
@@ -1542,8 +1546,9 @@ body.contact-active .chat-toggle {
   }
 
   .site-header {
+    grid-template-columns: auto 1fr auto;
     padding: 12px 14px;
-    gap: 12px;
+    gap: 10px;
   }
 
   .brand {
@@ -1555,7 +1560,7 @@ body.contact-active .chat-toggle {
     height: 42px;
   }
 
-  .brand small {
+  .brand span {
     display: none;
   }
 
@@ -1565,7 +1570,7 @@ body.contact-active .chat-toggle {
 
   .header-socials {
     display: flex;
-    gap: 8px;
+    gap: 7px;
     justify-self: end;
   }
 
@@ -1574,13 +1579,15 @@ body.contact-active .chat-toggle {
     place-items: center;
     width: 38px;
     height: 38px;
-    border: 1px solid rgba(201, 137, 61, 0.42);
+    border: 1px solid rgba(244, 241, 234, 0.28);
     border-radius: 50%;
-    color: var(--ivory);
-    background: rgba(17, 17, 17, 0.72);
+    color: #111;
+    background: linear-gradient(135deg, #f4f1ea 0%, #c89a3d 100%);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
   }
 
-  .social-link span {
+  .social-icon,
+  .social-text {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -1589,9 +1596,13 @@ body.contact-active .chat-toggle {
     white-space: nowrap;
   }
 
-  .social-link svg {
-    width: 18px;
-    height: 18px;
+  .social-mark {
+    display: block;
+    color: #111;
+    font-size: 12px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 0;
   }
 
   .hero {
