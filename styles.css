@@ -257,6 +257,30 @@ h3 {
   display: none;
 }
 
+@media (min-width: 641px) {
+  .site-header .social-link {
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    color: inherit;
+    background: none;
+    box-shadow: none;
+  }
+
+  .site-header .social-mark {
+    display: none;
+  }
+
+  .site-header .social-icon {
+    display: none;
+  }
+
+  .site-header .social-text {
+    display: inline;
+  }
+}
+
 .header-phone {
   white-space: nowrap;
   font-weight: 800;
