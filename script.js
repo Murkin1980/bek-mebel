@@ -117,6 +117,7 @@ const stageSelect = document.getElementById("stage");
 const messageInput = document.getElementById("message");
 const leadSummary = document.getElementById("leadSummary");
 const briefProgress = document.querySelectorAll(".brief-progress span");
+const quickForms = document.querySelectorAll("[data-quick-form]");
 
 const styleCards = document.querySelectorAll(".style-card");
 const stylePreviewImage = document.getElementById("stylePreviewImage");
@@ -158,6 +159,45 @@ phoneInput.addEventListener("input", () => {
   phoneInput.classList.remove("error");
   phoneError.classList.remove("show");
   updateLeadSummary();
+});
+
+quickForms.forEach((form) => {
+  const quickPhone = form.querySelector('input[name="phone"]');
+  const quickSubmit = form.querySelector('button[type="submit"]');
+
+  quickPhone.addEventListener("input", () => {
+    quickPhone.value = formatKzPhone(quickPhone.value);
+    quickPhone.classList.remove("error");
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const name = form.querySelector('input[name="name"]').value.trim();
+    const phone = quickPhone.value.trim();
+    const service = form.querySelector('[name="service"]').value;
+
+    if (!isValidPhone(phone)) {
+      quickPhone.classList.add("error");
+      quickPhone.focus();
+      return;
+    }
+
+    const whatsappMessage =
+      "Здравствуйте! Заявка с сайта bek-mebel:\n\n" +
+      `Имя: ${name || "не указано"}\n` +
+      `Телефон: ${phone}\n` +
+      `Тип мебели: ${service || "не указан"}\n` +
+      "Комментарий: нужен предварительный расчет и обратный звонок.";
+
+    quickSubmit.disabled = true;
+    quickSubmit.textContent = "Открываем WhatsApp...";
+    trackLeadConversion("quick-form");
+    openWhatsApp(whatsappMessage);
+    form.reset();
+    quickSubmit.disabled = false;
+    quickSubmit.textContent = "Получить расчет";
+  });
 });
 
 [document.getElementById("service"), styleSelect, dimensionsInput, stageSelect, messageInput].forEach((field) => {
