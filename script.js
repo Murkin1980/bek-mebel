@@ -118,6 +118,7 @@ const messageInput = document.getElementById("message");
 const leadSummary = document.getElementById("leadSummary");
 const briefProgress = document.querySelectorAll(".brief-progress span");
 const quickForms = document.querySelectorAll("[data-quick-form]");
+const whatsappLinks = document.querySelectorAll('a[href*="wa.me/77027904001"]');
 
 const styleCards = document.querySelectorAll(".style-card");
 const stylePreviewImage = document.getElementById("stylePreviewImage");
@@ -153,6 +154,12 @@ function selectStyle(styleName) {
   }
   updateLeadSummary();
 }
+
+whatsappLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    trackLeadConversion("whatsapp-click");
+  });
+});
 
 phoneInput.addEventListener("input", () => {
   phoneInput.value = formatKzPhone(phoneInput.value);
