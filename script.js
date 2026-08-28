@@ -97,13 +97,24 @@ function openWhatsApp(message) {
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
 }
 
-function trackLeadConversion(source) {
+function trackGoogleAdsLead() {
   if (typeof window.gtag !== "function") return;
 
   window.gtag("event", "conversion", {
-    send_to: "AW-16661568302/1uqnCIjB1o8cEK627Yg-",
-    transaction_id: `bek-${source}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    send_to: "AW-18195868385/i839CLP7obUcEOHVu-RD",
   });
+}
+
+const activeLeadSubmissions = new WeakSet();
+
+function beginLeadSubmission(control) {
+  if (activeLeadSubmissions.has(control)) return false;
+  activeLeadSubmissions.add(control);
+  return true;
+}
+
+function finishLeadSubmission(control) {
+  window.setTimeout(() => activeLeadSubmissions.delete(control), 1000);
 }
 
 const leadForm = document.getElementById("leadForm");
@@ -118,8 +129,6 @@ const messageInput = document.getElementById("message");
 const leadSummary = document.getElementById("leadSummary");
 const briefProgress = document.querySelectorAll(".brief-progress span");
 const quickForms = document.querySelectorAll("[data-quick-form]");
-const whatsappLinks = document.querySelectorAll('a[href*="wa.me/77027904001"]');
-
 const styleCards = document.querySelectorAll(".style-card");
 const stylePreviewImage = document.getElementById("stylePreviewImage");
 const stylePreviewTag = document.getElementById("stylePreviewTag");
@@ -155,12 +164,6 @@ function selectStyle(styleName) {
   updateLeadSummary();
 }
 
-whatsappLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    trackLeadConversion("whatsapp-click");
-  });
-});
-
 phoneInput.addEventListener("input", () => {
   phoneInput.value = formatKzPhone(phoneInput.value);
   phoneInput.classList.remove("error");
@@ -190,6 +193,8 @@ quickForms.forEach((form) => {
       return;
     }
 
+    if (!beginLeadSubmission(form)) return;
+
     const whatsappMessage =
       "Здравствуйте! Заявка с сайта bek-mebel:\n\n" +
       `Имя: ${name || "не указано"}\n` +
@@ -199,11 +204,14 @@ quickForms.forEach((form) => {
 
     quickSubmit.disabled = true;
     quickSubmit.textContent = "Открываем WhatsApp...";
-    trackLeadConversion("quick-form");
+    trackGoogleAdsLead();
     openWhatsApp(whatsappMessage);
     form.reset();
-    quickSubmit.disabled = false;
-    quickSubmit.textContent = "Получить расчет";
+    finishLeadSubmission(form);
+    window.setTimeout(() => {
+      quickSubmit.disabled = false;
+      quickSubmit.textContent = "Получить расчет";
+    }, 1000);
   });
 });
 
@@ -253,6 +261,8 @@ leadForm.addEventListener("submit", (event) => {
     return;
   }
 
+  if (!beginLeadSubmission(leadForm)) return;
+
   const whatsappMessage =
     "Здравствуйте! Заявка с сайта bek-mebel:\n\n" +
     `Имя: ${name || "не указано"}\n` +
@@ -265,15 +275,18 @@ leadForm.addEventListener("submit", (event) => {
 
   submitBtn.disabled = true;
   submitBtn.textContent = "Открываем WhatsApp...";
-  trackLeadConversion("form");
+  trackGoogleAdsLead();
   openWhatsApp(whatsappMessage);
   leadForm.reset();
   document.querySelectorAll(".option-chips button").forEach((button) => button.classList.remove("active"));
   selectStyle("Премиум светлый");
   updateLeadSummary();
   formSuccess.textContent = "Заявка подготовлена. Если WhatsApp не открылся, нажмите кнопку еще раз.";
-  submitBtn.disabled = false;
-  submitBtn.textContent = "Отправить заявку";
+  finishLeadSubmission(leadForm);
+  window.setTimeout(() => {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Отправить заявку";
+  }, 1000);
 });
 
 document.querySelectorAll(".service-card").forEach((card) => {
@@ -511,6 +524,9 @@ function sendChatLead() {
     return;
   }
 
+  if (!beginLeadSubmission(chatPhoneSend)) return;
+  chatPhoneSend.disabled = true;
+
   bubble(phone, "user");
   chatPhoneRow.classList.remove("show");
   const message =
@@ -520,9 +536,11 @@ function sendChatLead() {
     `Стадия: ${chatState.stage || "не указана"}\n` +
     `Телефон: ${phone}`;
 
-  trackLeadConversion("assistant");
+  trackGoogleAdsLead();
   openWhatsApp(message);
+  finishLeadSubmission(chatPhoneSend);
   setTimeout(() => {
+    chatPhoneSend.disabled = false;
     bubble("Готово. Открываю WhatsApp с вашей заявкой.", "bot");
     setChatButtons(["Новая заявка"], () => startChat());
   }, 250);
